@@ -82,7 +82,7 @@ const EmotionalIntelligenceTest = () => {
       padding: '40px',
       maxWidth: '800px',
       margin: '0 auto',
-      backgroundColor: '#f0f8ff',
+      backgroundColor: '#ded1fc',
       color: '#333',
       borderRadius: '15px',
       boxShadow: '0 0 20px rgba(0, 0, 0, 0.1)',

@@ -81,7 +81,7 @@ const SelfConfidenceTest = () => {
     {
       id: 15,
       text: 'I can remain calm when facing difficulties because I can rely on my coping abilities.',
-      translation: 'अडचणींना तोंड देताना मी शांत राहू शकतो कारण मी माझ्या सामना करण्याच्या क्ष���तेवर अवलंबून राहू शकतो.',
+      translation: 'अडचणींना तोंड देताना मी शांत राहू शकतो कारण मी माझ्या सामना करण्याच्या क्षमतेवर अवलंबून राहू शकतो.',
     },
     {
       id: 16,
@@ -157,7 +157,7 @@ const SelfConfidenceTest = () => {
       padding: '40px',
       maxWidth: '800px',
       margin: '0 auto',
-      backgroundColor: '#f0f8ff',
+      backgroundColor: '#ded1fc',
       color: '#333',
       borderRadius: '15px',
       boxShadow: '0 0 20px rgba(0, 0, 0, 0.1)',
@@ -248,7 +248,7 @@ const SelfConfidenceTest = () => {
       <Header />
       <div style={styles.container}>
         <div style={styles.header}>
-          <h1 style={styles.title}>Self-Confidence Test</h1>
+          <h1 style={styles.title}>Self-Actualization Test</h1>
           <p style={styles.description}>
             These are some questions which analyze your confidence level. You will get an exact scale of your Self-Confidence.
           </p>
