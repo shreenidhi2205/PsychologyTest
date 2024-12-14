@@ -10,53 +10,53 @@ const EmotionalIntelligenceTest = () => {
   const questions = [
     {
       id: 1,
-      text: 'I can recognize my emotions as I experience them.',
-      translation: 'मी माझ्या भावना अनुभवत असताना त्या ओळखू शकतो.',
+      text: 'I do not become defensive when critized.',
+      translation: 'टीका केल्यावर मी बचावात्मक होत नाही.',
     },
     {
       id: 2,
-      text: 'I lose my temper when I feel frustrated.',
-      translation: 'मला निराशा वाटते तेव्हा मी माझा राग अनावर होतो.',
+      text: ' I can stay calm under pressure',
+      translation: 'मी दबावाखाली शांत राहू शकतो',
     },
     {
       id: 3,
-      text: 'I know how to calm myself down when I feel anxious or upset.',
-      translation: 'मला चिंता वाटते किंवा मी अस्वस्थ असतो तेव्हा मला स्वतःला कसे शांत करायचे हे माहित आहे.',
+      text: 'I handle setback effectively.',
+      translation: 'मी आघात प्रभावीपणे हाताळतो.',
     },
     {
       id: 4,
-      text: 'I find it hard to focus on something over the long term.',
-      translation: 'मला दीर्घकाळासाठी एखाद्या गोष्टीवर लक्ष केंद्रित करणे कठीण वाटते.',
+      text: 'I manage Anxiety, Stress, Anger, and Fear in pursuit of a Goal.',
+      translation: 'मी ध्येयाचा पाठलाग करताना चिंता, तणाव, राग आणि भीतीचे व्यवस्थापन करतो. ',
     },
     {
       id: 5,
-      text: 'I can \'read\' people\'s emotions by looking at their facial expressions.',
-      translation: 'मी लोकांच्या चेहऱ्यावरील भाव पाहून त्यांच्या भावना \'वाचू\' शकतो.',
+      text: 'I utilize criticism and other feedback for growth.',
+      translation: 'मी वाढीसाठी टीका आणि इतर अभिप्राय वापरतो.',
     },
     {
       id: 6,
-      text: 'I am aware of the non-verbal messages other people send.',
-      translation: 'इतर लोक पाठवत असलेल्या अशाब्दिक संदेशांची मला जाणीव असते.',
+      text: 'I am positive.',
+      translation: 'मी सकारात्मक आहे. ',
     },
     {
       id: 7,
-      text: 'When I am faced with a challenge, I give up because I believe I will fail.',
-      translation: 'जेव्हा मला आव्हानाचा सामना करावा लागतो, तेव्हा मी अपयशी होईन असे वाटून मी सोडून देतो.',
+      text: 'I maintain a sense of humor.',
+      translation: 'माझा विनोदी स्वभाव आहे.',
     },
     {
       id: 8,
-      text: 'I help other people feel better when they are down.',
-      translation: 'इतर लोक नाराज असतात तेव्हा मी त्यांना बरे वाटण्यास मदत करतो.',
+      text: "I try to see things from other person's perspective.",
+      translation: 'मी दुसऱ्याच्या दृष्टीकोनातून गोष्टी पाहण्याचा प्रयत्न करतो',
     },
     {
       id: 9,
-      text: 'I use good moods to help myself keep trying in the face of obstacles.',
-      translation: 'अडथळ्यांना तोंड देताना मी स्वतःला प्रयत्न करत राहण्यास मदत करण्यासाठी चांगल्या मनःस्थितीचा वापर करतो.',
+      text: 'I recognize how my behavior affects others.',
+      translation: 'माझ्या वागण्याचा इतरांवर कसा परिणाम होतो हे मी ओळखतो. ',
     },
     {
       id: 10,
-      text: 'I can tell how people are feeling by listening to the tone of their voice.',
-      translation: 'लोकांच्या आवाजाचा सूर ऐकून ते कसे वाटत आहेत हे मी सांगू शकतो.',
+      text: ' I can listen without jumping to judgement.',
+      translation: 'मी निर्णयावर भेदभावात्मक विचार न करता शकतो. ',
     },
   ];
 

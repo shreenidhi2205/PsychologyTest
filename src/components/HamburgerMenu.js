@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const HamburgerMenu = ({ isLoggedIn, setIsLoggedIn }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true); // Track visibility
+  const [lastScrollY, setLastScrollY] = useState(0); // Track last scroll position
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -13,7 +15,41 @@ const HamburgerMenu = ({ isLoggedIn, setIsLoggedIn }) => {
     setIsOpen(false);
   };
 
+  const handleAdminLoginClick = () => {
+    setIsOpen(false); // Close the menu after clicking Admin Login
+  };
+
+  // Hide/show menu based on scroll direction
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY) {
+        setIsVisible(false); // Hide on scroll down
+      } else {
+        setIsVisible(true); // Show on scroll up
+      }
+
+      setLastScrollY(currentScrollY); // Update last scroll position
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [lastScrollY]);
+
   const styles = {
+    container: {
+      position: 'fixed',
+      top: '0',
+      right: '0',
+      zIndex: '1000',
+      padding: '10px',
+      transition: 'transform 0.3s ease-in-out',
+      transform: isVisible ? 'translateY(0)' : 'translateY(-100%)', // Slide in/out
+    },
     hamburger: {
       display: 'flex',
       flexDirection: 'column',
@@ -60,7 +96,7 @@ const HamburgerMenu = ({ isLoggedIn, setIsLoggedIn }) => {
   };
 
   return (
-    <div>
+    <div style={styles.container}>
       <button 
         onClick={toggleMenu} 
         style={styles.hamburger}
@@ -72,7 +108,11 @@ const HamburgerMenu = ({ isLoggedIn, setIsLoggedIn }) => {
       </button>
       <div style={styles.menu}>
         {!isLoggedIn ? (
-          <Link to="/login" style={styles.menuItem}>
+          <Link 
+            to="/login" 
+            style={styles.menuItem} 
+            onClick={handleAdminLoginClick}
+          >
             Admin Login
           </Link>
         ) : (

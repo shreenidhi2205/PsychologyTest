@@ -43,13 +43,14 @@ const AdminPanel = () => {
 
       const reorderedData = studentResults.map((student) => ({
         Name: student.name,
-        City: student.city,
         Standard: student.standard,
         College: student.collegeName,
         "WhatsApp Number": student.whatsappNumber,
-        "Self-Actualization Score": student.selfConfidenceScore,
+        City: student.city,
+        "Self-Confidence Score": student.selfConfidenceScore,
         "Leadership Quality Score": student.leadershipQualityScore,
         "Emotional Intelligence Score": student.emotionalIntelligenceScore,
+        "Telephonic Counselling": student.counsellingPreference ,
       }));
 
       const worksheet = XLSX.utils.json_to_sheet(reorderedData);
@@ -128,7 +129,7 @@ const AdminPanel = () => {
             width: "100%",
             borderCollapse: "collapse",
             backgroundColor: "white",
-            minWidth: "900px", // Ensure a minimum width for the table
+            minWidth: "1000px", // Adjusted for new column
           }}
         >
           <thead>
@@ -144,9 +145,10 @@ const AdminPanel = () => {
               <th style={{ padding: "10px" }}>College</th>
               <th style={{ padding: "10px" }}>WhatsApp Number</th>
               <th style={{ padding: "10px" }}>Standard</th>
-              <th style={{ padding: "10px" }}>Self-Actualization Score</th>
+              <th style={{ padding: "10px" }}>Self Confidence Score</th>
               <th style={{ padding: "10px" }}>Leadership Quality Score</th>
               <th style={{ padding: "10px" }}>Emotional Intelligence Score</th>
+              <th style={{ padding: "10px" }}>Telephonic Counselling</th>
             </tr>
           </thead>
           <tbody>
@@ -161,11 +163,13 @@ const AdminPanel = () => {
                   <td style={{ padding: "10px" }}>{testResults.selfConfidenceScore}</td>
                   <td style={{ padding: "10px" }}>{testResults.leadershipQualityScore}</td>
                   <td style={{ padding: "10px" }}>{testResults.emotionalIntelligenceScore}</td>
+                  <td style={{ padding: "10px" }}>{testResults.counsellingPreference}
+                  </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="8" style={{ textAlign: "center", padding: "20px", color: "#666" }}>
+                <td colSpan="9" style={{ textAlign: "center", padding: "20px", color: "#666" }}>
                   No results available
                 </td>
               </tr>

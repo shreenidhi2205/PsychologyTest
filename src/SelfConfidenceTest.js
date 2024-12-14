@@ -248,7 +248,7 @@ const SelfConfidenceTest = () => {
       <Header />
       <div style={styles.container}>
         <div style={styles.header}>
-          <h1 style={styles.title}>Self-Actualization Test</h1>
+          <h1 style={styles.title}>Self Confidence Test</h1>
           <p style={styles.description}>
             These are some questions which analyze your confidence level. You will get an exact scale of your Self-Confidence.
           </p>

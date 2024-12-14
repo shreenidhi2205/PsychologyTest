@@ -198,19 +198,25 @@ const LeadershipQualityTest = () => {
             <p style={styles.questionText}>{q.id}. {q.text}</p>
             <p style={styles.questionTranslation}>{q.translation}</p>
             <div style={styles.options}>
-              {['Strongly Disagree', 'Disagree', 'Neither Agree nor Disagree', 'Agree', 'Strongly Agree'].map((option, index) => (
-                <label key={index} style={styles.option}>
-                  <input
-                    type="radio"
-                    name={`q${q.id}`}
-                    value={index + 1}
-                    onChange={() => handleChange(q.id, index + 1)}
-                    checked={responses[q.id] === index + 1}
-                    style={styles.radio}
-                  />
-                  {option}
-                </label>
-              ))}
+            {[
+  { label: 'I definitely have this quality', value: 2 },
+  { label: "I'm pretty good at this", value: 4 },
+  { label: 'I need to work on this', value: 6 },
+  { label: 'I need help in how to do this', value: 8 }
+].map((option, index) => (
+  <label key={index} style={styles.option}>
+    <input
+      type="radio"
+      name={`q${q.id}`}
+      value={option.value}
+      onChange={() => handleChange(q.id, option.value)}
+      checked={responses[q.id] === option.value}
+      style={styles.radio}
+    />
+    {option.label}
+  </label>
+))}
+
             </div>
           </div>
         ))}

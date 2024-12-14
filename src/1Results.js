@@ -63,6 +63,7 @@ const Results = () => {
         selfConfidenceScore: selfConfidenceScore,
         leadershipQualityScore: leadershipQualityScore,
         emotionalIntelligenceScore: emotionalIntelligenceScore,
+        counsellingPreference: formData.counselling,
         dateCompleted: new Date().toISOString(), // Store date when the result was submitted
       };
 
@@ -84,17 +85,44 @@ const Results = () => {
     const certificateImage = '/Certificate.png'; // Path to your certificate image
   
     doc.addImage(certificateImage, 'PNG', 10, 10, 270, 190); // Adjust dimensions to fit the PDF
+    doc.setFont('times', 'bold'); // Set font to Times New Roman and make it bold
     doc.setFontSize(24);
     doc.setTextColor(0, 0, 0);
-  
-    // Adjust the position of the student's name to the bottom left
-    const nameX = 95; // X-coordinate (closer to the left)
-    const nameY = 125; // Y-coordinate (closer to the bottom)
-    doc.text(formData.name, nameX, nameY);
-  
+
+    // Convert the name to uppercase
+    const studentName = formData.name.toUpperCase();
+    
+    // Calculate the X-coordinate to center the name
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const textWidth = doc.getTextWidth(studentName);
+    const nameX = (pageWidth-10 - textWidth) / 2; // Center horizontally
+    const nameY = 125; // Y-coordinate for the text
+
+    // Add the text to the certificate
+    doc.text(studentName, nameX, nameY);
+
     doc.save('certificate.pdf'); // Trigger download
-  };
-  
+};
+const commentSelfConfidence = () => {
+  if (selfConfidenceScore >= 0 && selfConfidenceScore <= 49) return "You are highly unconfident";
+  if (selfConfidenceScore >= 50 && selfConfidenceScore <= 74) return "You are somewhat unconfident";
+  if (selfConfidenceScore >= 75 && selfConfidenceScore <= 99) return "You are somewhat confident";
+  return "You are highly confident";
+};
+
+const commentEmotionalTest = () => {
+  if (emotionalIntelligenceScore >= 0 && emotionalIntelligenceScore <= 10) return "You are extremely poor in emotional intelligence";
+  if (emotionalIntelligenceScore >= 11 && emotionalIntelligenceScore <= 20) return "You need improvement in emotional intelligence";
+  if (emotionalIntelligenceScore >= 21 && emotionalIntelligenceScore <= 30) return "You have comparatively good emotional intelligence";
+  if (emotionalIntelligenceScore >= 31 && emotionalIntelligenceScore <= 40) return "You have a very good emotional intelligence";
+  return "You have excellent emotional intelligence";
+};
+
+const commentLogical = () => {
+  if (leadershipQualityScore >= 0 && leadershipQualityScore <= 10) return "You need improvement in leadership qualities";
+  if (leadershipQualityScore >= 11 && leadershipQualityScore <= 20) return "You have good leadership qualities";
+  return "You have excellent leadership qualities";
+};
 
   const styles = {
     container: {
@@ -204,13 +232,6 @@ const Results = () => {
         fontSize: '0.9rem',
       },
     },
-    image: {
-      width: '100%', // Image takes up 100% of its container's width
-      maxWidth: '400px', // Set a maximum width for larger screens
-      height: 'auto', // Maintains the aspect ratio
-      margin: '20px auto', // Center the image
-      display: 'block',
-    },
   };
   
   
@@ -292,43 +313,72 @@ const Results = () => {
                 style={styles.input}
               />
             </div>
+            <div style={styles.formGroup}>
+    <label style={styles.label}>
+      Do you like to avail the facility of Telephonic Counselling for Psychological issues like Study pressure, Stress, Time Management, etc.?
+    </label>
+    <div>
+      <label style={styles.radioLabel}>
+        <input
+          type="radio"
+          name="counselling"
+          value="YES"
+          onChange={handleInputChange}
+          required
+          style={styles.radio}
+        />
+        YES
+      </label>
+      <br></br>
+      <label style={styles.radioLabel}>
+        <input
+          type="radio"
+          name="counselling"
+          value="NO"
+          onChange={handleInputChange}
+          style={styles.radio}
+        />
+        NO
+      </label>
+    </div>
+      
+        </div>
         
             <button type="submit" style={styles.submitButton}>Submit</button>
           </form>
         ) : (
           <>
             <p style={styles.description}>
-              Here are your scores for the three tests you've completed. These results provide insights into your self-actualization, leadership qualities, and emotional intelligence.
+              Here are your scores for the three tests you've completed. These results provide insights into your Self-Confidence, Leadership Qualities, and Emotional Intelligence.
             </p>
             <table style={styles.table}>
               <thead>
                 <tr>
                   <th style={styles.th}>Test</th>
                   <th style={styles.th}>Score</th>
+                  <th style={styles.th}>Comment</th>                  
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td style={styles.td}>Self-Actualization Test</td>
+                  <td style={styles.td}>Self Confidence Test</td>
                   <td style={styles.td}>{selfConfidenceScore}</td>
+                  <td style={styles.td}>{commentSelfConfidence()}</td>
                 </tr>
                 <tr>
                   <td style={styles.td}>Leadership Quality Test</td>
                   <td style={styles.td}>{leadershipQualityScore}</td>
+                  <td style={styles.td}>{commentLogical()}</td>
                 </tr>
                 <tr>
                   <td style={styles.td}>Emotional Intelligence Test</td>
                   <td style={styles.td}>{emotionalIntelligenceScore}</td>
+                  <td style={styles.td}>{commentEmotionalTest()}</td>
                 </tr>
               </tbody>
             </table>
 
-            <img 
- 
-        src="/Summary.png" 
-        alt="Summary" 
-        style={styles.image} // Updated style for responsiveness
-      />
+      
       
    
       <button style={styles.button} onClick={handleDownloadCertificate}>
