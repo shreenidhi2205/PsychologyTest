@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import * as XLSX from "xlsx";
 
 const AdminPanel = () => {
@@ -45,12 +45,13 @@ const AdminPanel = () => {
         Name: student.name,
         Standard: student.standard,
         College: student.collegeName,
-        "WhatsApp Number": student.whatsappNumber,
+        Email: student.email,
         City: student.city,
         "Self-Confidence Score": student.selfConfidenceScore,
         "Leadership Quality Score": student.leadershipQualityScore,
         "Emotional Intelligence Score": student.emotionalIntelligenceScore,
-        "Telephonic Counselling": student.counsellingPreference ,
+        "Telephonic Counselling": student.counsellingPreference,
+        "Submission Time": student.timestamp,
       }));
 
       const worksheet = XLSX.utils.json_to_sheet(reorderedData);
@@ -72,6 +73,17 @@ const AdminPanel = () => {
       console.error("Error downloading records:", error);
       alert("Failed to download records.");
       setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const docRef = doc(db, "testResults", id);
+      await deleteDoc(docRef);
+      setStudentResults((prevResults) => prevResults.filter((result) => result.id !== id));
+    } catch (error) {
+      console.error("Error deleting record:", error);
+      alert("Failed to delete record.");
     }
   };
 
@@ -129,7 +141,7 @@ const AdminPanel = () => {
             width: "100%",
             borderCollapse: "collapse",
             backgroundColor: "white",
-            minWidth: "1000px", // Adjusted for new column
+            minWidth: "1200px",
           }}
         >
           <thead>
@@ -143,12 +155,14 @@ const AdminPanel = () => {
               <th style={{ padding: "10px" }}>Name</th>
               <th style={{ padding: "10px" }}>City</th>
               <th style={{ padding: "10px" }}>College</th>
-              <th style={{ padding: "10px" }}>WhatsApp Number</th>
+              <th style={{ padding: "10px" }}>Email</th>
               <th style={{ padding: "10px" }}>Standard</th>
               <th style={{ padding: "10px" }}>Self Confidence Score</th>
               <th style={{ padding: "10px" }}>Leadership Quality Score</th>
               <th style={{ padding: "10px" }}>Emotional Intelligence Score</th>
               <th style={{ padding: "10px" }}>Telephonic Counselling</th>
+              <th style={{ padding: "10px" }}>Submission Time</th>
+              <th style={{ padding: "10px" }}>Actions</th> {/* Add Actions column */}
             </tr>
           </thead>
           <tbody>
@@ -158,18 +172,30 @@ const AdminPanel = () => {
                   <td style={{ padding: "10px" }}>{testResults.name}</td>
                   <td style={{ padding: "10px" }}>{testResults.city}</td>
                   <td style={{ padding: "10px" }}>{testResults.collegeName}</td>
-                  <td style={{ padding: "10px" }}>{testResults.whatsappNumber}</td>
+                  <td style={{ padding: "10px" }}>{testResults.email}</td>
                   <td style={{ padding: "10px" }}>{testResults.standard}</td>
                   <td style={{ padding: "10px" }}>{testResults.selfConfidenceScore}</td>
                   <td style={{ padding: "10px" }}>{testResults.leadershipQualityScore}</td>
                   <td style={{ padding: "10px" }}>{testResults.emotionalIntelligenceScore}</td>
-                  <td style={{ padding: "10px" }}>{testResults.counsellingPreference}
+                  <td style={{ padding: "10px" }}>{testResults.counsellingPreference}</td>
+                  <td style={{ padding: "10px" }}>{testResults.timestamp}</td>
+                  <td style={{ padding: "10px", cursor: "pointer" }}>
+                    <span
+                      onClick={() => handleDelete(testResults.id)}
+                      style={{
+                        fontSize: "20px",
+                        color: "#ff0000",
+                        cursor: "pointer",
+                      }}
+                    >
+                      🗑️
+                    </span>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="9" style={{ textAlign: "center", padding: "20px", color: "#666" }}>
+                <td colSpan="11" style={{ textAlign: "center", padding: "20px", color: "#666" }}>
                   No results available
                 </td>
               </tr>

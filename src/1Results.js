@@ -14,7 +14,7 @@ const Results = () => {
     name: '',
     collegeName: '',
     standard: '',
-    whatsappNumber: '',
+    email: '',
     city: '',
   });
 
@@ -34,37 +34,36 @@ const Results = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'whatsappNumber') {
-      const numericValue = value.replace(/\D/g, '').slice(0, 10);
-      setFormData(prevData => ({
-        ...prevData,
-        [name]: numericValue
-      }));
-    } else {
-      setFormData(prevData => ({
-        ...prevData,
-        [name]: value
-      }));
-    }
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.whatsappNumber.length === 10) {
+    if (formData.email.includes('@')) {
       setShowResults(true);
-      
+
       // Data to be stored in Firebase
       const resultData = {
         name: formData.name,
         collegeName: formData.collegeName,
         standard: formData.standard,
-        whatsappNumber: formData.whatsappNumber,
+        email: formData.email,
         city: formData.city,
         selfConfidenceScore: selfConfidenceScore,
         leadershipQualityScore: leadershipQualityScore,
         emotionalIntelligenceScore: emotionalIntelligenceScore,
         counsellingPreference: formData.counselling,
-        dateCompleted: new Date().toISOString(), // Store date when the result was submitted
+        timestamp: new Date().toLocaleString('en-GB', { // Change this to format the date
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true,
+        }).replace(',', ''), // Store date and time when the result was submitted
       };
 
       try {
@@ -77,9 +76,10 @@ const Results = () => {
         alert('There was an error submitting your results.');
       }
     } else {
-      alert('Please enter a valid 10-digit WhatsApp number.');
+      alert('Please enter a valid email address.');
     }
   };
+
   const handleDownloadCertificate = () => {
     const doc = new jsPDF('landscape'); // Set the PDF to landscape mode
     const certificateImage = '/Certificate.png'; // Path to your certificate image
@@ -231,6 +231,21 @@ const commentLogical = () => {
         padding: '10px 20px',
         fontSize: '0.9rem',
       },
+      adContainer: {
+        marginTop: '20px',
+        padding: '15px',
+        backgroundColor: '#f9f9f9',
+        border: '1px solid #ddd',
+        borderRadius: '5px',
+        textAlign: 'center',
+      },
+      adTitle: {
+        fontWeight: '700',
+        color: '#2c3e50',
+      },
+      adText: {
+        color: '#34495e',
+      },
     },
   };
   
@@ -288,16 +303,14 @@ const commentLogical = () => {
               />
             </div>
             <div style={styles.formGroup}>
-              <label htmlFor="whatsappNumber" style={styles.label}>WhatsApp Number (10 digits)</label>
+              <label htmlFor="email" style={styles.label}>Email</label>
               <input
-                type="tel"
-                id="whatsappNumber"
-                name="whatsappNumber"
-                value={formData.whatsappNumber}
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
                 onChange={handleInputChange}
                 required
-                pattern="[0-9]{10}"
-                maxLength="10"
                 style={styles.input}
               />
             </div>
@@ -345,6 +358,19 @@ const commentLogical = () => {
         </div>
         
             <button type="submit" style={styles.submitButton}>Submit</button>
+            <div style={styles.adContainer}>
+              <h2 style={styles.adTitle}>🎉 Exclusive Offer Just for You! 🎉</h2>
+              <p style={styles.adText}>
+                Ace your goals with our <strong>FREE Mock Tests</strong> for Maha-CET - Engineering, BCA, MCA, and MBA!
+              </p>
+              <p style={styles.adHighlight}>
+                💰 Unlock a <strong>Scholarship of ₹10,000/-</strong> with expert counseling! 
+              </p>
+              <p style={styles.adText}>
+                📞 Contact us now at <strong>+91-7424080910</strong> to claim your benefits. 
+              </p>
+              <p style={styles.adText}>⏳ Limited time offer! Don't miss out!</p>
+            </div>
           </form>
         ) : (
           <>
@@ -384,10 +410,30 @@ const commentLogical = () => {
       <button style={styles.button} onClick={handleDownloadCertificate}>
               Download Certificate
             </button>
+            <div style={styles.adContainer}>
+              <h2 style={styles.adTitle}>🎉 Exclusive Offer Just for You! 🎉</h2>
+              <p style={styles.adText}>
+                Ace your goals with our <strong>FREE Mock Tests</strong> for Maha-CET - Engineering, BCA, MCA, and MBA!
+              </p>
+              <p style={styles.adHighlight}>
+                💰 Unlock a <strong>Scholarship of ₹10,000/-</strong> with expert counseling! 
+              </p>
+              <p style={styles.adText}>
+                📞 Contact us now at <strong>+91-7424080910</strong> to claim your benefits. 
+              </p>
+              <p style={styles.adText}>
+  Check out our college website to know more about us{' '}
+  <a href="https://www.nmiet.edu.in/" target="_blank" rel="noopener noreferrer">
+    https://www.nmiet.edu.in/
+  </a>
+</p>
+
+      </div>
           </>
         )}
-        
+      
       </div>
+      
     </>
   );
 };
