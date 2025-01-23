@@ -46,7 +46,7 @@ const SelfConfidenceTest = () => {
     {
       id: 8,
       text: 'I wish I could have more respect for myself.',
-      translation: 'माझी इच्छा आहे की मला स्वतःबद्दल अधिक आदर निर्माण करेल.',
+      translation: 'मला इच्छा आहे की मला स्वतः वर अधिक विश्वास असावा किंवा ठेवता आला पाहिजे.',
     },
     {
       id: 9,
